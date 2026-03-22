@@ -77,15 +77,6 @@ def get_speech_onset(wav_path):
             
     return max(0, raw_onset - LEAD_IN_BUFFER)
 
-def apply_silence(input_path, output_path, onset):
-    """Apply silence to the first 'onset' seconds of the video."""
-    subprocess.run([
-        "ffmpeg", "-y", "-i", input_path,
-        "-af", f"volume=0:enable='between(t,0,{onset})'",
-        "-c:v", "copy",
-        output_path
-    ], check=True, capture_output=True)
-
 def calculate_silence_segment(input_path_or_url):
     """
     Calculate the duration of silence at the beginning of a video.
@@ -127,21 +118,3 @@ def calculate_silence_segment(input_path_or_url):
         except Exception as e:
             print(f"Error during cleanup: {e}")
 
-def upload_to_r2(file_path, object_name):
-    """Upload a file to Cloudflare R2 and return the public URL."""
-    s3 = boto3.client(
-        's3',
-        endpoint_url=f"https://{os.getenv('R2_ACCOUNT_ID')}.r2.cloudflarestorage.com",
-        aws_access_key_id=os.getenv('R2_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.getenv('R2_SECRET_ACCESS_KEY'),
-        config=Config(signature_version='s3v4'),
-        region_name='auto'
-    )
-    
-    bucket = os.getenv('R2_BUCKET_NAME')
-    s3.upload_file(file_path, bucket, object_name, ExtraArgs={'ContentType': 'video/mp4'})
-    
-    cdn_domain = os.getenv('R2_PUBLIC_DOMAIN')
-    if cdn_domain.startswith('http'):
-        return f"{cdn_domain}/{object_name}"
-    return f"https://{cdn_domain}/{object_name}"
