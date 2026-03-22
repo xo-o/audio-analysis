@@ -34,7 +34,7 @@ def process(
         silence_until = calculate_silence_segment(video_url)
 
         return {
-            "silence_duration": round(silence_until, 3)
+            "silence_until": round(silence_until, 3)
         }
 
     except Exception as e:

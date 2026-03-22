@@ -57,10 +57,10 @@ Calculates the silence duration at the beginning of a video.
 -   **Response**:
     ```json
     {
-      "silence_duration": 0.9
+      "silence_until": 0.9
     }
     ```
-    -   `silence_duration`: The exact duration (in seconds) of silence at the beginning of the clip.
+    -   `silence_until`: The exact duration (in seconds) of silence at the beginning of the clip.
 
 ### 2. Health Check
 Returns the current status of the service.
