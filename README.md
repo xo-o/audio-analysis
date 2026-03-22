@@ -5,8 +5,7 @@ This service provides robust Voice Activity Detection (VAD) and silence applicat
 ## Prerequisites
 
 - **Python 3.9.6** (Standard on macOS)
-- **FFmpeg** (Required for audio extraction and silence application)
-- **Cloudflare R2** account (For video storage)
+- **FFmpeg** (Required for audio extraction)
 
 ## Installation
 
@@ -42,7 +41,7 @@ Start the FastAPI server using the Python 3.9 environment:
 ## API Documentation
 
 ### 1. Process Video
-Calculates the silence duration at the beginning of a video, applies the silence, and uploads the result to R2.
+Calculates the silence duration at the beginning of a video.
 
 -   **URL**: `/process`
 -   **Method**: `POST` (Recommended) or `GET`
@@ -58,12 +57,10 @@ Calculates the silence duration at the beginning of a video, applies the silence
 -   **Response**:
     ```json
     {
-      "url": "https://cdn.scenify.io/processed/ugc-uuid.mp4",
       "silence_duration": 0.9
     }
     ```
-    -   `url`: The public URL of the silenced video.
-    -   `silence_duration`: The exact duration (in seconds) that was silenced.
+    -   `silence_duration`: The exact duration (in seconds) of silence at the beginning of the clip.
 
 ### 2. Health Check
 Returns the current status of the service.
