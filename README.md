@@ -28,6 +28,28 @@ Start the FastAPI server using the Python 3.9 environment:
 ./venv39/bin/python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
+## Deployment
+
+### 1. Railway (Easiest)
+Railway will automatically detect the `Dockerfile` in the root directory.
+-   Connect your GitHub repository.
+-   Railway will build and deploy the container.
+-   No manual `ffmpeg` or `torch` setup required.
+
+### 2. Google Cloud Run (Scalable)
+Build and push the Docker image to Container Registry:
+```bash
+gcloud builds submit --tag gcr.io/your-project/audio-vad
+gcloud run deploy --image gcr.io/your-project/audio-vad --platform managed
+```
+
+### 3. Manual Docker Build
+If you want to run the container locally:
+```bash
+docker build -t audio-vad .
+docker run -p 8000:8000 audio-vad
+```
+
 ## API Documentation
 
 ### 1. Process Video
