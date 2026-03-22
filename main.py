@@ -2,13 +2,6 @@ from fastapi import FastAPI, HTTPException, Query
 from vad_logic import calculate_silence_segment
 import tempfile
 import requests
-import os
-import subprocess
-import uuid
-from dotenv import load_dotenv
-
-load_dotenv()
-
 app = FastAPI()
 
 @app.get("/health")

@@ -9,8 +9,6 @@ import torch
 import wave
 import struct
 import math
-import boto3
-from botocore.client import Config
 
 # --- Configuration ---
 # Use the same threshold and sample rate as the user's working script
