@@ -8,6 +8,8 @@ ENV PYTHONUNBUFFERED=1
 # Install system dependencies (FFmpeg is critical for audio extraction)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
+    libsndfile1 \
+    sox \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
