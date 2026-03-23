@@ -14,7 +14,6 @@ import math
 # Use the same threshold and sample rate as the user's working script
 SAMPLING_RATE = 16000
 VAD_THRESHOLD = 0.5
-LEAD_IN_BUFFER = 0.3 # 300ms
 ENERGY_THRESHOLD_DB = -35.0
 
 # Lazy-load VAD model in a global cache
@@ -73,7 +72,8 @@ def get_speech_onset(wav_path):
             raw_onset = t
             break
             
-    return max(0, raw_onset - LEAD_IN_BUFFER)
+    # The client will handle any leading buffer/offset.
+    return round(raw_onset, 3)
 
 def calculate_silence_segment(input_path_or_url):
     """

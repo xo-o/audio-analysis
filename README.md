@@ -69,7 +69,7 @@ Calculates the silence duration at the beginning of a video.
 -   **Response**:
     ```json
     {
-      "silence_until": 0.9
+      "silence_until": 1.2
     }
     ```
     -   `silence_until`: The exact duration (in seconds) of silence at the beginning of the clip.
@@ -85,7 +85,7 @@ Returns the current status of the service.
 
 1.  **VAD Detection**: Uses Silero VAD (v5) at 16kHz to find the first sustained speech segment.
 2.  **Strategy D (Refinement)**: Searches for the exact point where audio energy crosses -35dB within a 2-second window starting from the VAD onset.
-3.  **Buffer**: Subtracts a 300ms `LEAD_IN_BUFFER` to ensure natural starts.
+3.  **Result**: Returns the exact raw onset time (in seconds). The client is responsible for any leading offsets or buffers.
 
 ## Repository Structure
 
